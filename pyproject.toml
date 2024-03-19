@@ -1,0 +1,15 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "learn_python"
+version = "0.0.1"
+dependencies = []
+requires-python = ">=3.11"
+authors = [
+    {name = "kasrsf"}
+]
+description = "Learning python!"
+readme = "README.md"
+license = {text = "MIT License"}
