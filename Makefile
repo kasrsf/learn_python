@@ -52,3 +52,15 @@ install-dependencies:: venv
 	fi
 	@echo ">> installing dependencies"
 	uv pip install -r requirements.txt
+
+# commands bellow assume the environment has been setup and the dependencies are installed
+lint::
+	@echo ">> linting code"
+	ruff check
+
+format::
+	@echo ">> formatting code"
+	ruff format
+
+check-code:: lint format
+	@echo ">> code checked"
