@@ -5,7 +5,10 @@ build-backend = "hatchling.build"
 [project]
 name = "learn_python"
 version = "0.0.1"
-dependencies = []
+dependencies = [
+    "jupyter",
+    "ruff"
+]
 requires-python = ">=3.11"
 authors = [
     {name = "kasrsf"}
@@ -13,3 +16,9 @@ authors = [
 description = "Learning python!"
 readme = "README.md"
 license = {text = "MIT License"}
+
+[tool.ruff]
+extend-include = ["*.ipynb"]
+
+[tool.ruff.lint.per-file-ignores]
+"*.ipynb" = ["E402"]
