@@ -35,11 +35,19 @@ install-uv:: install-pipx
 	pipx install uv
 
 venv:: install-uv
-	@echo ">> creating virtual environment"
-	uv venv
+	@echo ">> checking for virtual environment"
+	@if [ -d "venv" ]; then \
+        echo "virtual environment exists"; \
+    else \
+        echo "creating virtual environment"; \
+		uv venv; \
+    fi
 
 activate:: venv
-	@echo  ">> run 'source .venv/bin/activate' to enter virtual environment shell (.venv\Scripts\activate on Windows)"
+	@if [ -z "$$VIRTUAL_ENV" ]; then \
+		echo ">> run 'source .venv/bin/activate' to enter virtual environment shell"; \
+		exit 1; \
+	fi
 
 sync-dependencies:: venv
 	@echo ">> compiling pyproject.toml to requirements.txt"
@@ -54,13 +62,13 @@ install-dependencies:: venv
 	uv pip install -r requirements.txt
 
 # commands bellow assume the environment has been setup and the dependencies are installed
-lint::
+lint:: activate
 	@echo ">> linting code"
 	ruff check
 
-format::
+format:: activate
 	@echo ">> formatting code"
 	ruff format
 
-check-code:: lint format
+check-code:: activate lint format
 	@echo ">> code checked"
